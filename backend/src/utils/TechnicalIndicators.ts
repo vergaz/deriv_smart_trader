@@ -1,17 +1,15 @@
+@'
 export class TechnicalIndicators {
   calculateRSI(prices: number[], period: number = 14): number {
     let gains = 0;
     let losses = 0;
-    
     for (let i = 1; i <= period; i++) {
       const change = prices[prices.length - i] - prices[prices.length - i - 1];
       if (change >= 0) gains += change;
       else losses -= change;
     }
-    
     const avgGain = gains / period;
     const avgLoss = losses / period;
-    
     if (avgLoss === 0) return 100;
     const rs = avgGain / avgLoss;
     return 100 - (100 / (1 + rs));
@@ -70,7 +68,6 @@ export class TechnicalIndicators {
     const highs = data.map(d => d.high);
     const lows = data.map(d => d.low);
     const currentPrice = prices[prices.length - 1];
-    
     return {
       rsi: this.calculateRSI(prices),
       macd: this.calculateMACD(prices),
@@ -85,3 +82,4 @@ export class TechnicalIndicators {
     };
   }
 }
+'@ | Out-File -FilePath C:\Users\George\deriv_smart_trader\backend\src\utils\TechnicalIndicators.ts -Encoding utf8
